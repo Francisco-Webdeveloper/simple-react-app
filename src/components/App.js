@@ -1,6 +1,7 @@
 /* eslint-disable react/state-in-constructor */
 import React from 'react';
 import Table from './Table';
+import Form from './Form';
 
 class App extends React.Component {
   // data is contained in the state
@@ -48,6 +49,7 @@ class App extends React.Component {
           // pass the removeCharacter function through as a prop to Table
           removeCharacter={this.removeCharacter}
         />
+        <Form />
       </div>
     );
   }
