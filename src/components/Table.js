@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Simple Components
 const TableHeader = () => (
@@ -10,37 +11,41 @@ const TableHeader = () => (
   </thead>
 );
 
-const TableBody = () => (
-  <tbody>
-    <tr>
-      <td>Charlie</td>
-      <td>Janitor</td>
+const TableBody = (props) => {
+  // eslint-disable-next-line react/destructuring-assignment
+  const rows = props.characterData.map((index, row) => (
+    <tr key={index}>
+      <td>{row}</td>
+      <td>{row}</td>
     </tr>
-    <tr>
-      <td>Mac</td>
-      <td>Bouncer</td>
-    </tr>
-    <tr>
-      <td>Dee</td>
-      <td>Actress</td>
-    </tr>
-    <tr>
-      <td>Dennis</td>
-      <td>Bartender</td>
-    </tr>
-  </tbody>
-);
+  ));
+  return <tbody>{rows}</tbody>;
+};
 
 // Class Component
 class Table extends React.Component {
   render() {
+    // access the data inside props
+    const { characterData } = this.props;
+
     return (
       <table>
+        {/* Simple components are nested in the Class Component */}
         <TableHeader />
-        <TableBody />
+        {/* pass the data through to the TableBody component as props */}
+        <TableBody characterData={characterData} />
       </table>
     );
   }
 }
+
+// props validations
+Table.propTypes = {
+  characterData: PropTypes.array.isRequired,
+};
+
+TableBody.propTypes = {
+  characterData: PropTypes.array.isRequired,
+};
 
 export default Table;
