@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/state-in-constructor */
 import React from 'react';
 import Table from './Table';
@@ -6,24 +8,7 @@ import Form from './Form';
 class App extends React.Component {
   // data is contained in the state
   state = {
-    characters: [
-      {
-        name: 'Charlie',
-        job: 'Janitor',
-      },
-      {
-        name: 'Mac',
-        job: 'Bouncer',
-      },
-      {
-        name: 'Dee',
-        job: 'Actress',
-      },
-      {
-        name: 'Dennis',
-        job: 'Bartender',
-      },
-    ],
+    characters: [],
   };
 
   removeCharacter = (index) => {
@@ -38,6 +23,14 @@ class App extends React.Component {
     });
   };
 
+  // function that updates the state by taking the existing this.state.characters
+  // and adding the new character parameter
+  handleSubmit = (character) => {
+    this.setState({
+      characters: [...this.state.characters, character],
+    });
+  };
+
   render() {
     const { characters } = this.state;
 
@@ -49,7 +42,7 @@ class App extends React.Component {
           // pass the removeCharacter function through as a prop to Table
           removeCharacter={this.removeCharacter}
         />
-        <Form />
+        <Form handleSubmit={this.handleSubmit} />
       </div>
     );
   }
